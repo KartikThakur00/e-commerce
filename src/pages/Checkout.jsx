@@ -5,6 +5,7 @@ const Checkout = () => {
     const { cart, setCart } = useContext(CartContext)
 
     const TotalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0)
+    const shippingPrice = 8
 
     return (
         <div className="w-full  ">
@@ -23,7 +24,7 @@ const Checkout = () => {
                                     </div>
                                 </div>
                             )
-                        })}                        
+                        })}
                     </div>
                 </div>
                 <div class="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
@@ -83,12 +84,12 @@ const Checkout = () => {
                             </div>
                             <div class="flex items-center justify-between">
                                 <p class="text-sm font-medium text-gray-900">Shipping</p>
-                                <p class="font-semibold text-gray-900">$8.00</p>
+                                <p class="font-semibold text-gray-900">${TotalPrice ? shippingPrice : 0}</p>
                             </div>
                         </div>
                         <div class="mt-6 flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Total</p>
-                            <p class="text-2xl font-semibold text-gray-900">${Number(TotalPrice.toFixed(2))+8}</p>
+                            <p class="text-2xl font-semibold text-gray-900">${Number(TotalPrice.toFixed(2)) + (TotalPrice ? shippingPrice : 0)}</p>
                         </div>
                     </div>
                     <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place Order</button>
