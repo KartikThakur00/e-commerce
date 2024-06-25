@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect} from 'react'
 import {
   Route,
   RouterProvider,
@@ -9,7 +9,8 @@ import RootLayout from './layouts/RootLayout'
 import Home from './pages/Home'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
-import { CartContext } from './components/Context'
+import { useDispatch } from 'react-redux'
+import { fetchProducts } from './features/product/productSlice'
 
 
 const router = createBrowserRouter(
@@ -23,14 +24,16 @@ const router = createBrowserRouter(
 )
 
 function App() {
-  const [cart, setCart] = useState([])
+
+  const dispatch = useDispatch()
+
+  // fetch data from api and send it to the store
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [])
 
   return (
-    <>
-      <CartContext.Provider value={{ cart, setCart }}>
-        <RouterProvider router={router} />
-      </CartContext.Provider>
-    </>
+    <RouterProvider router={router} />
   )
 }
 

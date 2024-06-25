@@ -1,6 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import fakeData from "@/data/data.json";
-import { CartContext } from "@/components/Context";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -12,16 +10,18 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "@/features/cart/cartSlice";
 
 
 const Home = () => {
-    const [data, setData] = useState([])
+    const dispatch = useDispatch();
+    const dataState = useSelector((state) => state.product.products);
+    // console.log(dataState)
+    const cartState = useSelector((state) => state.cart.cart);
+    console.log(cartState)
+    // const [data, setData] = useState([a])
     const [quantity, setQuantity] = useState(1)
-    const { cart, setCart } = useContext(CartContext)
-
-    useEffect(()=>{
-        setData(fakeData.data)
-    },[])
 
     const handleCart = (item, quantity) => {
         setCart(cart => [...cart, { ...item, quantity }]);
@@ -34,7 +34,7 @@ const Home = () => {
     return (
         <section className='h-full'>
             <div className="flex flex-wrap justify-center gap-4 mt-10">
-                {data.map((item) => {
+                {dataState.map((item) => {
                     return (
                         <div key={item.id} className="w-[300px] flex flex-col items-center  p-4 rounded-2xl shadow-md mb-8">
                             <img src={item.image} alt={item.title} className=" object-contain aspect-4/3 p-4 rounded-xl -mt-8 shadow-md" />
@@ -62,7 +62,7 @@ const Home = () => {
                                             </div>
                                             <div className="flex justify-between p-2">
                                                 <Input type="number" onChange={e => setQuantity(e.target.value)} className="w-32" placeholder="Quantity 1" /><DialogClose asChild>
-                                                    <Button onClick={() => handleCart(item, quantity)}>
+                                                    <Button onClick={() => dispatch(addToCart({item,quantity}))}>
                                                         Add to Cart
                                                     </Button>
                                                 </DialogClose>
