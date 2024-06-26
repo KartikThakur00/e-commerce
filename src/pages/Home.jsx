@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -17,20 +17,7 @@ import { addToCart } from "@/features/cart/cartSlice";
 const Home = () => {
     const dispatch = useDispatch();
     const dataState = useSelector((state) => state.product.products);
-    // console.log(dataState)
-    const cartState = useSelector((state) => state.cart.cart);
-    console.log(cartState)
-    // const [data, setData] = useState([a])
     const [quantity, setQuantity] = useState(1)
-
-    const handleCart = (item, quantity) => {
-        setCart(cart => [...cart, { ...item, quantity }]);
-        setQuantity(1)
-    }
-
-    // console.log(data)
-    // console.log("cart :", cart)
-    // console.log(quantity)
     return (
         <section className='h-full'>
             <div className="flex flex-wrap justify-center gap-4 mt-10">
@@ -62,7 +49,7 @@ const Home = () => {
                                             </div>
                                             <div className="flex justify-between p-2">
                                                 <Input type="number" onChange={e => setQuantity(e.target.value)} className="w-32" placeholder="Quantity 1" /><DialogClose asChild>
-                                                    <Button onClick={() => dispatch(addToCart({item,quantity}))}>
+                                                    <Button onClick={() => dispatch(addToCart({ item, quantity }))}>
                                                         Add to Cart
                                                     </Button>
                                                 </DialogClose>

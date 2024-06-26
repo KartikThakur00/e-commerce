@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 
 const Checkout = () => {
   const cartState = useSelector((state) => state.cart.cart)

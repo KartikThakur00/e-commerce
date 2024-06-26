@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "@/features/cart/cartSlice";
+import { memo } from "react";
 
 
 const Cart = () => {
@@ -49,4 +50,4 @@ const Cart = () => {
     );
 }
 
-export default Cart;
+export default memo(Cart);
